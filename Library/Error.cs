@@ -97,7 +97,7 @@ namespace Recurly
 
                 try
                 {
-                    using (var xmlReader = new XmlReader(responseStream))
+                    using (var xmlReader = XmlReader.Create(responseStream))
                     {
                         bool list = false;
 

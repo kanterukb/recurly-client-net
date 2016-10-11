@@ -351,7 +351,7 @@ namespace Recurly
             }
 
             responseStream.Position = 0;
-            using (var xmlReader = new XmlReader(responseStream))
+            using (var xmlReader = XmlReader.Create(responseStream))
             {
                 // Check for pagination
                 var records = -1;
@@ -388,10 +388,15 @@ namespace Recurly
 
         protected virtual void WritePostParameters(Stream outputStream, WriteXmlDelegate writeXmlDelegate)
         {
-            using (var xmlWriter = new XmlWriter(outputStream, Encoding.UTF8))
+            var settings = new XmlWriterSettings
+            {
+                Encoding = Encoding.UTF8,
+                Indent = true
+            };
+
+            using (var xmlWriter = XmlWriter.Create(outputStream, settings))
             {
                 xmlWriter.WriteStartDocument();
-                xmlWriter.Formatting = Formatting.Indented;
 
                 writeXmlDelegate(xmlWriter);
 
@@ -401,10 +406,9 @@ namespace Recurly
             // Also copy XML to debug output
             Console.WriteLine("Sending Data:");
             var s = new MemoryStream();
-            using (var xmlWriter = new XmlWriter(s, Encoding.UTF8))
+            using (var xmlWriter = XmlWriter.Create(s, settings))
             {
                 xmlWriter.WriteStartDocument();
-                xmlWriter.Formatting = Formatting.Indented;
 
                 writeXmlDelegate(xmlWriter);
 
@@ -428,7 +432,8 @@ namespace Recurly
                 count = inputStream.Read(buffer, 0, readSize);
             }
             ms.Position = 0;
-            inputStream.Close();
+            //inputStream.Close();
+            inputStream.Dispose();
             return ms;
         }
 
