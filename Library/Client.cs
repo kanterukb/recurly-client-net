@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Web;
 using Recurly.Configuration;
+using System.Net.Http;
 
 [assembly: InternalsVisibleTo("Recurly.Test")]
 
@@ -34,8 +34,8 @@ namespace Recurly
             // SecurityProtocolType values below not available in Mono < 4.3
             const int SecurityProtocolTypeTls11 = 768;
             const int SecurityProtocolTypeTls12 = 3072;
-
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType)(SecurityProtocolTypeTls12 | SecurityProtocolTypeTls11); 
+            // TODO: Fix in future
+            //ServicePointManager.SecurityProtocol |= (SecurityProtocolType)(SecurityProtocolTypeTls12 | SecurityProtocolTypeTls11); 
         }
 
         internal static void ChangeInstance(Client client)
@@ -138,33 +138,42 @@ namespace Recurly
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Accept = "application/xml";      // Tells the server to return XML instead of HTML
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
-            request.SendChunked = false;             // Send it all as one request
-            request.UserAgent = Settings.UserAgent;
-            request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
-            request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
+
+            // TODO: Fix in future
+            //request.SendChunked = false;             // Send it all as one request
+
+            //request.UserAgent = Settings.UserAgent;
+            //request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+            //request.Headers.Add("X-Api-Version", Settings.RecurlyApiVersion);
+            request.Headers["User-Agent"] = Settings.UserAgent;
+            request.Headers[HttpRequestHeader.Authorization] = Settings.AuthorizationHeaderValue;
+            request.Headers["X-Api-Version"] =  Settings.RecurlyApiVersion;
+
             request.Method = method.ToString().ToUpper();
 
             Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
 
             if ((method == HttpRequestMethod.Post || method == HttpRequestMethod.Put) && (writeXmlDelegate != null))
             {
+                // TODO: Fix in future
                 // 60 second timeout -- some payment gateways (e.g. PayPal) can take a while to respond
-                request.Timeout = 60000;
+                //request.Timeout = 60000;
 
                 // Write POST/PUT body
-                using (var requestStream = request.GetRequestStream())
+                using (var requestStream = request.GetRequestStreamAsync().Result)
                 {
                     WritePostParameters(requestStream, writeXmlDelegate);
                 }
             }
             else
             {
-                request.ContentLength = 0;
+                // TODO: Fix in future
+                //request.ContentLength = 0;
             }
 
             try
             {
-                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponseAsync().Result)
                 {
 
                     ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
@@ -242,23 +251,31 @@ namespace Recurly
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Accept = acceptType;
             request.ContentType = "application/xml; charset=utf-8"; // The request is an XML document
-            request.SendChunked = false;             // Send it all as one request
-            request.UserAgent = Settings.UserAgent;
-            request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+
+            // TODO: Fix in future
+            //request.SendChunked = false;             // Send it all as one request
+
+            //request.UserAgent = Settings.UserAgent;
+            //request.Headers.Add(HttpRequestHeader.Authorization, Settings.AuthorizationHeaderValue);
+
+            request.Headers["User-Agent"] = Settings.UserAgent;
+            request.Headers[HttpRequestHeader.Authorization] = Settings.AuthorizationHeaderValue;
             request.Method = "GET";
-            request.Headers.Add("Accept-Language", acceptLanguage);
+            //request.Headers.Add("Accept-Language", acceptLanguage);
+            request.Headers["Accept-Language"] = acceptLanguage;
 
             Debug.WriteLine(String.Format("Recurly: Requesting {0} {1}", request.Method, request.RequestUri));
 
             try
             {
-                var r = (HttpWebResponse)request.GetResponse();
+                var r = (HttpWebResponse)request.GetResponseAsync().Result;
                 byte[] pdf;
                 var buffer = new byte[2048];
                 if (!request.HaveResponse || r.StatusCode != HttpStatusCode.OK) return null;
                 using (var ms = new MemoryStream())
                 {
-                    using (var reader = new BinaryReader(r.GetResponseStream(), Encoding.Default))
+                    //using (var reader = new BinaryReader(r.GetResponseStream(), Encoding.Default))
+                    using (var reader = new BinaryReader(r.GetResponseStream(), Encoding.UTF8))
                     {
                         int bytesRead;
                         while ((bytesRead = reader.Read(buffer, 0, 2048)) > 0)

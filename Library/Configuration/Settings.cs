@@ -70,7 +70,8 @@ namespace Recurly.Configuration
         {
             get
             {
-                return "Recurly C# Client v" + Assembly.GetExecutingAssembly().GetName().Version;
+                //return "Recurly C# Client v" + Assembly.GetExecutingAssembly().GetName().Version;
+                return "Recurly C# Client .NET Core v 1.0";
             }
         }
 
