@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Net;
-using System.Web;
 using System.Xml;
 
 namespace Recurly
@@ -48,10 +46,16 @@ namespace Recurly
         public void ReadFromLocation(HttpWebResponse response)
         {
             var url = new Uri(response.Headers["Location"]);
-            NameValueCollection qscoll = HttpUtility.ParseQueryString(url.Query);
-            PerPage = int.Parse(qscoll.Get("per_page"));
 
-            BaseUrl = url.Scheme + "://" + url.Host + ":" + url.Port + url.AbsolutePath + "?cursor=" + qscoll.Get("cursor");
+            //NameValueCollection qscoll = HttpUtility.ParseQueryString(url.Query);
+            //PerPage = int.Parse(qscoll.Get("per_page"));
+
+            //BaseUrl = url.Scheme + "://" + url.Host + ":" + url.Port + url.AbsolutePath + "?cursor=" + qscoll.Get("cursor");
+
+            var qscoll = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(url.Query);
+            PerPage = int.Parse(qscoll["per_page"]);
+
+            BaseUrl = url.Scheme + "://" + url.Host + ":" + url.Port + url.AbsolutePath + "?cursor=" + qscoll["cursor"];
             
             GetItems();
         }
