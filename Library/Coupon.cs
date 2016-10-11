@@ -106,7 +106,7 @@ namespace Recurly
         {
         }
 
-        internal Coupon(XmlTextReader xmlReader)
+        internal Coupon(XmlReader xmlReader)
         {
             ReadXml(xmlReader);
         }
@@ -204,7 +204,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -308,11 +308,13 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "plan_codes":
@@ -327,7 +329,7 @@ namespace Recurly
             }
         }
 
-        internal void ReadXmlPlanCodes(XmlTextReader reader)
+        internal void ReadXmlPlanCodes(XmlReader reader)
         {
             Plans.Clear();
 
@@ -347,7 +349,7 @@ namespace Recurly
             }
         }
 
-        internal void ReadXmlDiscounts(XmlTextReader reader)
+        internal void ReadXmlDiscounts(XmlReader reader)
         {            
             DiscountInCents = new Dictionary<string, int>();
 
@@ -363,7 +365,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("coupon"); // Start: coupon
 
@@ -423,14 +425,14 @@ namespace Recurly
         }
 
 
-        public void WriteGenerateXml(XmlTextWriter xmlWriter)
+        public void WriteGenerateXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("coupon"); // Start: coupon
             xmlWriter.WriteElementString("number_of_unique_codes", NumberOfUniqueCodes.Value.AsString());
             xmlWriter.WriteEndElement(); // End: coupon
         }
 
-        internal void WriteXmlUpdate(XmlTextWriter xmlWriter)
+        internal void WriteXmlUpdate(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("coupon"); // Start: coupon
 

@@ -8,7 +8,7 @@ namespace Recurly
         public int UnitAmountInCents { get; set; }
         public int Quantity { get; set; }
 
-        public SubscriptionAddOn(XmlTextReader reader)
+        public SubscriptionAddOn(XmlReader reader)
         {
             ReadXml(reader);
         }
@@ -20,7 +20,7 @@ namespace Recurly
             Quantity = quantity;
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -46,7 +46,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("subscription_add_on");
 

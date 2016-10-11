@@ -25,7 +25,7 @@ namespace Recurly
             get { return HasPrevPage() ? new InvoiceList(PrevUrl) : RecurlyList.Empty<Invoice>(); }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
 
             while (reader.Read())

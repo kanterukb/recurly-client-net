@@ -11,7 +11,7 @@ namespace Recurly
             Build = new QueryStringBuilder();
         }
 
-        internal abstract void ReadXml(XmlTextReader reader);
-        internal abstract void WriteXml(XmlTextWriter writer);
+        internal abstract void ReadXml(XmlReader reader);
+        internal abstract void WriteXml(XmlWriter writer);
     }
 }

@@ -75,7 +75,7 @@ namespace Recurly
             Transactions = new TransactionList();
         }
 
-        internal Invoice(XmlTextReader reader)
+        internal Invoice(XmlReader reader)
             : this()
         {
             ReadXml(reader);
@@ -196,7 +196,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -283,7 +283,8 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "closed_at":
@@ -343,7 +344,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlWriter writer)
         {
             throw new System.NotImplementedException();
         }

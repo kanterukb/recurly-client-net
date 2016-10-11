@@ -36,7 +36,7 @@ namespace Recurly
         {
         }
 
-        internal Usage(XmlTextReader reader)
+        internal Usage(XmlReader reader)
             : this()
         {
             ReadXml(reader);
@@ -84,7 +84,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -145,7 +145,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("usage");
 

@@ -15,12 +15,12 @@ namespace Recurly
             Uuid = adjustment.Uuid;
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             throw new System.NotImplementedException();
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("adjustment");
 

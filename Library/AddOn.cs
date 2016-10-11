@@ -43,7 +43,7 @@ namespace Recurly
         {
         }
 
-        internal AddOn(XmlTextReader xmlReader)
+        internal AddOn(XmlReader xmlReader)
         {
             ReadXml(xmlReader);
         }
@@ -91,7 +91,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadXmlUnitAmount(XmlTextReader reader)
+        internal void ReadXmlUnitAmount(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -106,7 +106,7 @@ namespace Recurly
             }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -143,11 +143,13 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "unit_amount_in_cents":
@@ -169,7 +171,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("add_on");
 

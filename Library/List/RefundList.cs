@@ -24,7 +24,7 @@ namespace Recurly
             RefundPriority = refundPriority;
         }
 
-        internal void WriteXml(XmlTextWriter writer) 
+        internal void WriteXml(XmlWriter writer) 
         {
             writer.WriteStartElement("invoice");
             writer.WriteElementString("refund_apply_order", RefundPriority.ToString().ToLower());

@@ -77,20 +77,20 @@ namespace Recurly
         /// Delegate to read the XML response from the server.
         /// </summary>
         /// <param name="xmlReader"></param>
-        public delegate void ReadXmlDelegate(XmlTextReader xmlReader);
+        public delegate void ReadXmlDelegate(XmlReader xmlReader);
 
         /// <summary>
         /// Reads paged XML responses from the server
         /// </summary>
         /// <param name="xmlReader"></param>
         /// <param name="records"></param>
-        public delegate void ReadXmlListDelegate(XmlTextReader xmlReader, int records, string start, string next, string prev);
+        public delegate void ReadXmlListDelegate(XmlReader xmlReader, int records, string start, string next, string prev);
 
         /// <summary>
         /// Delegate to write the XML request to the server.
         /// </summary>
         /// <param name="xmlWriter"></param>
-        public delegate void WriteXmlDelegate(XmlTextWriter xmlWriter);
+        public delegate void WriteXmlDelegate(XmlWriter xmlWriter);
 
 
         public HttpStatusCode PerformRequest(HttpRequestMethod method, string urlPath)
@@ -351,7 +351,7 @@ namespace Recurly
             }
 
             responseStream.Position = 0;
-            using (var xmlReader = new XmlTextReader(responseStream))
+            using (var xmlReader = new XmlReader(responseStream))
             {
                 // Check for pagination
                 var records = -1;
@@ -388,7 +388,7 @@ namespace Recurly
 
         protected virtual void WritePostParameters(Stream outputStream, WriteXmlDelegate writeXmlDelegate)
         {
-            using (var xmlWriter = new XmlTextWriter(outputStream, Encoding.UTF8))
+            using (var xmlWriter = new XmlWriter(outputStream, Encoding.UTF8))
             {
                 xmlWriter.WriteStartDocument();
                 xmlWriter.Formatting = Formatting.Indented;
@@ -401,7 +401,7 @@ namespace Recurly
             // Also copy XML to debug output
             Console.WriteLine("Sending Data:");
             var s = new MemoryStream();
-            using (var xmlWriter = new XmlTextWriter(s, Encoding.UTF8))
+            using (var xmlWriter = new XmlWriter(s, Encoding.UTF8))
             {
                 xmlWriter.WriteStartDocument();
                 xmlWriter.Formatting = Formatting.Indented;

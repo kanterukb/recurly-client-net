@@ -273,7 +273,7 @@ namespace Recurly
             IsPendingSubscription = false;
         }
 
-        internal Subscription(XmlTextReader reader)
+        internal Subscription(XmlReader reader)
         {
             ReadXml(reader);
         }
@@ -474,7 +474,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal void ReadPlanXml(XmlTextReader reader)
+        internal void ReadPlanXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -492,13 +492,13 @@ namespace Recurly
             }
         }
 
-        internal void ReadPreviewXml(XmlTextReader reader)
+        internal void ReadPreviewXml(XmlReader reader)
         {
             _preview = true;
             ReadXml(reader);
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             _saved = true;
 
@@ -664,12 +664,12 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();
         }
 
-        protected void ReadPendingSubscription(XmlTextReader reader)
+        protected void ReadPendingSubscription(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -700,7 +700,7 @@ namespace Recurly
             }
         }
 
-        protected void WriteSubscriptionXml(XmlTextWriter xmlWriter)
+        protected void WriteSubscriptionXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
@@ -765,17 +765,17 @@ namespace Recurly
             xmlWriter.WriteEndElement(); // End: subscription
         }
 
-        protected void WriteChangeSubscriptionNowXml(XmlTextWriter xmlWriter)
+        protected void WriteChangeSubscriptionNowXml(XmlWriter xmlWriter)
         {
             WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Now);
         }
 
-        protected void WriteChangeSubscriptionAtRenewalXml(XmlTextWriter xmlWriter)
+        protected void WriteChangeSubscriptionAtRenewalXml(XmlWriter xmlWriter)
         {
             WriteChangeSubscriptionXml(xmlWriter, ChangeTimeframe.Renewal);
         }
 
-        protected void WriteChangeSubscriptionXml(XmlTextWriter xmlWriter, ChangeTimeframe timeframe)
+        protected void WriteChangeSubscriptionXml(XmlWriter xmlWriter, ChangeTimeframe timeframe)
         {
             xmlWriter.WriteStartElement("subscription"); // Start: subscription
 
@@ -812,7 +812,7 @@ namespace Recurly
 
         internal Client.WriteXmlDelegate WriteSubscriptionNotesXml(Dictionary<string, string> notes)
         {
-            return delegate(XmlTextWriter xmlWriter)
+            return delegate(XmlWriter xmlWriter)
             {
                 xmlWriter.WriteStartElement("subscription"); // Start: subscription
 

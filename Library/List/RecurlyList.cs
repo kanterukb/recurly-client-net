@@ -97,7 +97,7 @@ namespace Recurly
             return baseUrl + divider + "per_page=" + PerPage;
         }
 
-        internal void ReadXmlList(XmlTextReader xmlReader, int records, string start, string next, string prev)
+        internal void ReadXmlList(XmlReader xmlReader, int records, string start, string next, string prev)
         {
             Items = records > 0 ? new List<T>(records) : new List<T>();
             _capacity = records;
@@ -107,7 +107,7 @@ namespace Recurly
             ReadXml(xmlReader);
         }
 
-        internal abstract void ReadXml(XmlTextReader reader);
+        internal abstract void ReadXml(XmlReader reader);
 
         #region List methods
 
@@ -267,7 +267,7 @@ namespace Recurly
             get { return new EmptyRecurlyListImpl<T>(); }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             throw new NotSupportedException("Empty Recurly Lists are read only!");
         }

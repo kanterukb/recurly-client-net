@@ -92,7 +92,7 @@ namespace Recurly
             _billingInfo = billingInfo;
         }
 
-        internal Account(XmlTextReader xmlReader)
+        internal Account(XmlReader xmlReader)
         {
             ReadXml(xmlReader);
         }
@@ -298,7 +298,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -363,11 +363,13 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime)reader.ReadContentAs(typeof (DateTime), null);
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "address":
@@ -384,7 +386,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("account"); // Start: account
 

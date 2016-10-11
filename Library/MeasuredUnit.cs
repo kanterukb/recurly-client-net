@@ -21,7 +21,7 @@ namespace Recurly
         {
         }
 
-        internal MeasuredUnit(XmlTextReader reader)
+        internal MeasuredUnit(XmlReader reader)
             : this()
         {
             ReadXml(reader);
@@ -71,7 +71,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -102,7 +102,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("measured_unit");
 

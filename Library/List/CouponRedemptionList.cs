@@ -28,7 +28,7 @@ namespace Recurly
             get { return HasPrevPage() ? new CouponRedemptionList(PrevUrl) : RecurlyList.Empty<CouponRedemption>(); }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {

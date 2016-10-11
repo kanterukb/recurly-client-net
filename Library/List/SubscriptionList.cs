@@ -23,7 +23,7 @@ namespace Recurly
             get { return HasPrevPage() ? new SubscriptionList(PrevUrl) : RecurlyList.Empty<Subscription>(); }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {

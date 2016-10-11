@@ -24,7 +24,7 @@ namespace Recurly
 
         public string SubscriptionUuid {get; set; }
 
-        internal CouponRedemption(XmlTextReader reader)
+        internal CouponRedemption(XmlReader reader)
             : this()
         {
             ReadXml(reader);
@@ -71,7 +71,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -121,17 +121,19 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "updated_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
                 }
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("redemption"); // Start: coupon
 

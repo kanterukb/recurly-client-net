@@ -83,7 +83,7 @@ namespace Recurly
                     string.Format("Adjustment's UnitAmountInCents may be at most {0}.", UnitAmountMax));
         }
 
-        internal Adjustment(XmlTextReader xmlReader)
+        internal Adjustment(XmlReader xmlReader)
         {
             ReadXml(xmlReader);
         }
@@ -118,7 +118,7 @@ namespace Recurly
 
         #region Read and Write XML documents
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -199,7 +199,8 @@ namespace Recurly
                         break;
 
                     case "start_date":
-                        StartDate = reader.ReadElementContentAsDateTime();
+                        //StartDate = reader.ReadElementContentAsDateTime();
+                        StartDate = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "end_date":
@@ -215,7 +216,8 @@ namespace Recurly
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
                         break;
 
                     case "state":
@@ -227,7 +229,7 @@ namespace Recurly
         }
 
         
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("adjustment"); 
             xmlWriter.WriteElementString("description", Description);

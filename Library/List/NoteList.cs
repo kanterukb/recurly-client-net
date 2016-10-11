@@ -24,7 +24,7 @@ namespace Recurly
             get { return HasPrevPage() ? new NoteList(PrevUrl) : RecurlyList.Empty<Note>(); }
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {

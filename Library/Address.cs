@@ -12,14 +12,14 @@ namespace Recurly
         public string Country { get; set; }
         public string Phone { get; set; }
 
-        internal Address(XmlTextReader reader)
+        internal Address(XmlReader reader)
         {
             ReadXml(reader);
         }
 
         internal Address() { }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -61,7 +61,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter xmlWriter)
+        internal override void WriteXml(XmlWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("address");
 

@@ -102,12 +102,6 @@
     <Compile Include="TransactionTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\Recurly.csproj">
-      <Project>{CA094233-B9A7-4700-A70A-3401E14070B9}</Project>
-      <Name>Recurly</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

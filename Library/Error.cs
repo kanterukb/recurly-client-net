@@ -36,7 +36,7 @@ namespace Recurly
         /// </summary>
         public string Details { get; internal set; }
 
-        internal Error(XmlTextReader reader, bool fromList)
+        internal Error(XmlReader reader, bool fromList)
         {
             if (fromList)
             {
@@ -97,7 +97,7 @@ namespace Recurly
 
                 try
                 {
-                    using (var xmlReader = new XmlTextReader(responseStream))
+                    using (var xmlReader = new XmlReader(responseStream))
                     {
                         bool list = false;
 
@@ -129,7 +129,7 @@ namespace Recurly
         /// <param name="name"></param>
         /// <param name="reader"></param>
         /// <returns></returns>
-        private string ReadAttr(string name, XmlTextReader reader)
+        private string ReadAttr(string name, XmlReader reader)
         {
             try
             {

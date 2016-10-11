@@ -9,12 +9,12 @@ namespace Recurly
         public string Message { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
-        internal Note(XmlTextReader xmlReader)
+        internal Note(XmlReader xmlReader)
         {
             ReadXml(xmlReader);
         }
 
-        internal override void ReadXml(XmlTextReader reader)
+        internal override void ReadXml(XmlReader reader)
         {
             while (reader.Read())
             {
@@ -43,7 +43,7 @@ namespace Recurly
             }
         }
 
-        internal override void WriteXml(XmlTextWriter writer)
+        internal override void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();
         }
