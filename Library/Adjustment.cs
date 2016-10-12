@@ -200,7 +200,7 @@ namespace Recurly
 
                     case "start_date":
                         //StartDate = reader.ReadElementContentAsDateTime();
-                        StartDate = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
+                        StartDate = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "end_date":
@@ -217,7 +217,7 @@ namespace Recurly
 
                     case "updated_at":
                         //UpdatedAt = reader.ReadElementContentAsDateTime();
-                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
+                        UpdatedAt = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "state":

@@ -19,7 +19,8 @@ namespace Recurly
 
         public static string AsString(this char c)
         {
-            return c.ToString(CultureInfo.InvariantCulture);
+            //return c.ToString(CultureInfo.InvariantCulture);
+            return c.ToString();
         }
 
         public static string AsString(this IEnumerable<char> chars)

@@ -258,11 +258,13 @@ namespace Recurly
                         break;
 
                     case "created_at":
-                        CreatedAt = reader.ReadElementContentAsDateTime();
+                        //CreatedAt = reader.ReadElementContentAsDateTime();
+                        CreatedAt = (DateTime) reader.ReadElementContentAs(typeof (DateTime), null);
                         break;
 
                     case "updated_at":
-                        UpdatedAt = reader.ReadElementContentAsDateTime();
+                        //UpdatedAt = reader.ReadElementContentAsDateTime();
+                        UpdatedAt = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "details":

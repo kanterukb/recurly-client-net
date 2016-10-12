@@ -284,7 +284,7 @@ namespace Recurly
 
                     case "updated_at":
                         //UpdatedAt = reader.ReadElementContentAsDateTime();
-                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
+                        UpdatedAt = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "closed_at":

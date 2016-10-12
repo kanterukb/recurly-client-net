@@ -274,12 +274,12 @@ namespace Recurly
 
                     case "created_at":
                         //CreatedAt = reader.ReadElementContentAsDateTime();
-                        CreatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
+                        CreatedAt = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "updated_at":
                         //UpdatedAt = reader.ReadElementContentAsDateTime();
-                        UpdatedAt = (DateTime)reader.ReadContentAs(typeof(DateTime), null);
+                        UpdatedAt = (DateTime)reader.ReadElementContentAs(typeof(DateTime), null);
                         break;
 
                     case "tax_exempt":
