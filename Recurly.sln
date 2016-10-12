@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recurly.Test", "Test\Recurly.Test.csproj", "{A610420B-4FEB-4590-A4B4-2926B4E52F47}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Recurly", "Library\Recurly.xproj", "{C125FA43-97CC-4AF8-91FF-9FCD4C63D368}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Recurly", "Recurly\Recurly.xproj", "{C125FA43-97CC-4AF8-91FF-9FCD4C63D368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
