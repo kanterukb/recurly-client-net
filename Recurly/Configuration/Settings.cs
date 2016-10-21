@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 [assembly: InternalsVisibleTo("Recurly.Test")]
 
@@ -106,12 +107,21 @@ namespace Recurly.Configuration
         }
 
 
-        public void InitializeFromConfig()
+        public void InitializeFromConfig(IConfigurationRoot configuration)
         {
-            ApiKey = Section.Current.ApiKey;
+            /*ApiKey = Section.Current.ApiKey;
             Subdomain = Section.Current.Subdomain;
             PrivateKey = Section.Current.PrivateKey;
-            PageSize = Section.Current.PageSize;
+            PageSize = Section.Current.PageSize;*/
+
+            ApiKey = configuration["recurly:apiKey"];
+            Subdomain = configuration["recurly:subdomain"];
+            PrivateKey = configuration["recurly:privateKey"];
+            int pageSize;
+            PageSize = int.TryParse(configuration["recurly:pageSize"], out pageSize)
+                ? pageSize
+                : 200;
+
             _hasLoaded = true;
         }
 
@@ -130,7 +140,7 @@ namespace Recurly.Configuration
             try
             {
                 // Will try and load the settings from the config file by default so not to break existing integrations.
-                InitializeFromConfig();
+                //InitializeFromConfig();
             }
             catch
             {

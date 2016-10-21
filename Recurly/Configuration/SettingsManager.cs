@@ -1,10 +1,12 @@
-﻿namespace Recurly.Configuration
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Recurly.Configuration
 {
     public static class SettingsManager
     {
-        public static void InitializeFromConfig()
+        public static void InitializeFromConfig(IConfigurationRoot configuration)
         {
-            Settings.Instance.InitializeFromConfig();
+            Settings.Instance.InitializeFromConfig(configuration);
         }
 
         public static void Initialize(string apiKey, string subdomain, string privateKey = "", int pageSize = 200)

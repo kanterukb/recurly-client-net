@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿/*
+using System.Configuration;
 
 namespace Recurly.Configuration
 {
@@ -59,3 +60,4 @@ namespace Recurly.Configuration
         #endregion
     }
 }
+*/

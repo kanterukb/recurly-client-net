@@ -160,7 +160,7 @@ namespace Recurly
                 //request.Timeout = 60000;
 
                 // Write POST/PUT body
-                using (var requestStream = request.GetRequestStreamAsync().Result)
+                using (var requestStream = request.GetRequestStreamAsync().GetAwaiter().GetResult())
                 {
                     WritePostParameters(requestStream, writeXmlDelegate);
                 }
@@ -173,7 +173,7 @@ namespace Recurly
 
             try
             {
-                using (var response = (HttpWebResponse)request.GetResponseAsync().Result)
+                using (var response = (HttpWebResponse)request.GetResponseAsync().GetAwaiter().GetResult())
                 {
 
                     ReadWebResponse(response, readXmlDelegate, readXmlListDelegate, reseponseDelegate);
